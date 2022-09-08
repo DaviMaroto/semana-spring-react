@@ -1,3 +1,4 @@
+import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import NotificationButton from '../NotificationButton'
@@ -5,22 +6,31 @@ import './styles.css'
 
 
 function SalesCard() {
+
+    const min = new Date(new Date().setDate(new Date().getDate() - 365)); //Código js para pegar a data de uma ano atrás
+    const max = new Date()
+   
+
+    const [minDate, setMinDate] = useState(min) //Declaração de um estado dentro de um componente react
+    const [maxDate, setMaxDate] = useState(max)
+
     return (
         <div className="dsmeta-card">
             <h2 className="dsmeta-sales-title">Vendas</h2>
             <div>
                 <div className="dsmeta-form-control-container">
-                    <DatePicker
-                        selected={new Date()}
-                        onChange={(date: Date) => { }}
+            
+                    <DatePicker //recebe um parametro chamado selected
+                        selected={minDate} //new date do js pega data atual
+                        onChange={(date: Date) => setMinDate(date)}
                         className="dsmeta-form-control"
-                        dateFormat="dd/MM/yyyy"
+                        dateFormat="dd/MM/yyyy" //react hook useState para manter estado das datas, se muda o useState ele muda o estado do componente
                     />
                 </div>
                 <div className="dsmeta-form-control-container">
                     <DatePicker
-                        selected={new Date()}
-                        onChange={(date: Date) => { }}
+                        selected={maxDate}
+                        onChange={(date: Date) => setMaxDate(date)}
                         className="dsmeta-form-control"
                         dateFormat="dd/MM/yyyy"
                     />
